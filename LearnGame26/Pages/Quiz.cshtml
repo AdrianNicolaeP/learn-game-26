@@ -1,0 +1,64 @@
+﻿@page
+@model LearnGame26.Pages.QuizModel
+@{
+    ViewData["Title"] = "Quiz";
+}
+
+<div class="text-center">
+    <div id="lives">Vieți: @Model.Vieti</div>
+    <div id="timer">Timp rămas: <span id="time">@Model.TimpRamas</span> secunde</div>
+
+    @if (Model.APrimitViata)
+    {
+        <p class="feedback-message">Ați primit o viață!</p>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.Feedback))
+    {
+        <p class="feedback-message">@Model.Feedback</p>
+    }
+
+    <h1 class="display-4">@Model.Intrebare</h1>
+
+    <form method="post" class="quiz-form">
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary quiz-btn" name="Raspuns" value="1">@Model.VarA</button>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary quiz-btn" name="Raspuns" value="2">@Model.VarB</button>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary quiz-btn" name="Raspuns" value="3">@Model.VarC</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        var timeLeft = 60;
+        var timer = setInterval(function () {
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                alert("Timpul a expirat!");
+                window.location.href = "/Index";
+            } else {
+                document.getElementById("time").innerHTML = timeLeft;
+                timeLeft--;
+            }
+        }, 1000);
+
+        // Funcție pentru redarea sunetelor
+        function playSound(isCorrect) {
+            var audio = new Audio(isCorrect ? '/sounds/corect.mp3' : '/sounds/gresit.mp3');
+            audio.play();
+        }
+
+        // Apelează funcția playSound când se primește feedback
+        document.addEventListener("DOMContentLoaded", function () {
+            var feedback = '@Model.Feedback';
+            if (feedback) {
+                playSound(feedback.includes('Corect'));
+            }
+        });
+    </script>
+}

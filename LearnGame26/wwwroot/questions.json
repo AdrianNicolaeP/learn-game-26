@@ -1,0 +1,23 @@
+[
+  {
+    "Text": "Care este capitala Franței?",
+    "VarA": "Berlin",
+    "VarB": "Madrid",
+    "VarC": "Paris",
+    "CorrectAnswer": "Paris"
+  },
+  {
+    "Text": "Care este capitala Germaniei?",
+    "VarA": "Berlin",
+    "VarB": "Madrid",
+    "VarC": "Paris",
+    "CorrectAnswer": "Berlin"
+  },
+  {
+    "Text": "Care este capitala Spaniei?",
+    "VarA": "Berlin",
+    "VarB": "Madrid",
+    "VarC": "Paris",
+    "CorrectAnswer": "Madrid"
+  }
+]

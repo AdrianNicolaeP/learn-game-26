@@ -1,0 +1,66 @@
+﻿@page
+@model LearnGame26.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Bine ați venit la Jocul de testare a cunoștințelor, dar și de învățare!</h1>
+   <details>
+       <summary>      
+       Pentru a începe trebuie bifat unul dintre seturi și apăsat butonul start.Click aici pentru rezumatul jocului! 
+       </summary>
+       Jocul conține 518 întrebări din mai multe domenii. Acestea sunt împărțite în 3 seturi. Dacă nu este bifat unul dintre seturi, butonul de start nu va funcționa. Timpul alocat fiecărei întrebări este de 60 de secunde, fiind adăugată o viață la fiecare 10 răspunsuri corecte. Când se încheie jocul  sub butonul Start va apărea un mesaj de felicitare și scorul opținut în cadrul jocullui!
+</details>
+
+    <form method="get" asp-page="Quiz">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="set" id="set1" value="1" />
+            <label class="form-check-label" for="set1">
+                Setul 1
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="set" id="set2" value="2" />
+            <label class="form-check-label" for="set2">
+                Setul 2
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="set" id="set3" value="3" />
+            <label class="form-check-label" for="set3">
+                Setul 3
+            </label>
+        </div>
+        <input type="hidden" name="reset" value="true" />
+        <button type="submit" class="btn btn-primary mt-3">Start</button>
+    </form>
+
+    @if (TempData["Scor"] != null)
+    {
+        <div class="alert alert-success mt-3">
+            <p>Felicitări! Ați răspuns corect la @TempData["Scor"] întrebări.</p>
+        </div>
+    }
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-info mt-3">
+            <p>@TempData["Message"]</p>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        // Dezactivăm butonul "Start" inițial
+        document.querySelector('button[type="submit"]').disabled = true;
+
+        // Adăugăm un eveniment pentru a activa butonul "Start" când un set este selectat
+        document.querySelectorAll('input[name="set"]').forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                document.querySelector('button[type="submit"]').disabled = false;
+            });
+        });
+    </script>
+}
